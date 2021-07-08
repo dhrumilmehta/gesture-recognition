@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta charset="UTF-8">
+<title>gesture classifaction</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <h1>gesture classifaction</h1>
+  <section class="top-section">
+
+<!-- Hyper params. -->
+    <div class="left-dropdown-container">
+
+      <!-- Learning rate -->
+      <div class="dropdown-wrapper">
+        <label>LEARNING RATE</label>
+        <div class="dropdown">
+
+          
+
+
+          <div class="custom-dropdown" id="learningRate-dropdown">
+            <div id="learningRate" class="custom-select"></div>
+            <img class="vertically-center" src="assets/rectangle-5.svg" />
+          </div>
+          <div id="learningRate-dropdown-list" class="custom-option-list hide" dropdownID = "learningRate">
+            <div class="custom-option"><span class="icon"><img src="assets/rectangle-6.png"/></span>0.00001</div>
+            <div class="custom-option selected"><span class="icon"><img src="assets/rectangle-6.png"/></span>0.0001</div>
+            <div class="custom-option"><span class="icon"><img src="assets/rectangle-6.png"/></span>0.001</div>
+            <div class="custom-option"><span class="icon"><img src="assets/rectangle-6.png"/></span>0.003</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Batch size -->
+      <div class="dropdown-wrapper">
+        <label>BATCH SIZE</label>
+        <div class="dropdown">
+            
+
+          <div class="custom-dropdown" id="batchSizeFraction-dropdown">
+            <div id="batchSizeFraction" class="custom-select"></div>
+            <img class="vertically-center" src="assets/rectangle-5.svg" />
+          </div>
+          <div id="batchSizeFraction-dropdown-list" class="custom-option-list hide" dropdownID = "batchSizeFraction">
+            <div class="custom-option"><span class="icon"><img src="assets/rectangle-6.png"/></span>0.05</div>
+            <div class="custom-option"><span class="icon"><img src="assets/rectangle-6.png"/></span>0.1</div>
+            <div class="custom-option selected"><span class="icon"><img src="assets/rectangle-6.png"/></span>0.4</div>
+            <div class="custom-option"><span class="icon"><img src="assets/rectangle-6.png"/></span>1</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Epochs -->
+      <div class="dropdown-wrapper">
+        <label>EPOCHS</label>
+        <div class="dropdown">
+         
+
+          <div class="custom-dropdown" id="epochs-dropdown">
+            <div id="epochs" class="custom-select"></div>
+            <img class="vertically-center" src="assets/rectangle-5.svg" />
+          </div>
+          <div id="epochs-dropdown-list" class="custom-option-list hide" dropdownID = "epochs">
+            <div class="custom-option"><span class="icon"><img src="assets/rectangle-6.png"/></span>10</div>
+            <div class="custom-option selected"><span class="icon"><img src="assets/rectangle-6.png"/></span>20</div>
+            <div class="custom-option"><span class="icon"><img src="assets/rectangle-6.png"/></span>40</div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <!-- Hidden units -->
+      <div class="dropdown-wrapper">
+        <label style="visibility: hidden;">HIDDEN UNITS</label>
+        <div class="dropdown">
+          
+
+
+          <div class="custom-dropdown" id="dense-units-dropdown">
+            <div id="dense-units" class="custom-select"></div>
+            <img class="vertically-center" src="assets/rectangle-5.svg" />
+          </div>
+          <div id="dense-units-dropdown-list" class="custom-option-list hide" dropdownID = "dense-units">
+            <div class="custom-option"><span class="icon"><img src="assets/rectangle-6.png"/></span>10</div>
+            <div class="custom-option selected"><span class="icon"><img src="assets/rectangle-6.png"/></span>100</div>
+            <div class="custom-option"><span class="icon"><img src="assets/rectangle-6.png"/></span>200</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="webcam-container">
+        <div class="webcam-outer-wrapper" id="webcam-outer-wrapper">
+          <div id="webcam-inner-wrapper" class="webcam-inner-wrapper center">
+            <div id="no-webcam" class="hide">
+              <img class="emoji" src="assets/icn_emoji.png"/>
+              <p>No webcam found.</p>
+              <p>You will need a webcam device to use this demo.</p>
+            </div>
+            <video autoplay playsinline muted width="224px" height="224px" id="webcam" ></video>
+          </div>
+      </div>
+    </div>
+
+    <div class="right-button-container">
+
+      <div>
+        <!-- Train Model -->
+        <button id="train" class="train-button disabled"><span id="train-status">TRAIN MODEL</span></button>
+      </div>
+
+      <div>
+        <!-- Test Model -->
+        <button class="test-button disabled" id="predict">TEST</button>
+        <button class="stop-button hide" id="stop-predict">STOP</button>
+      </div>
+
+      <div>
+        <!-- Download Model -->
+        <button id="download-model" class="download-button disabled" download >DOWNLOAD MODEL</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- User Help  -->
+  <div id="user-help" style="visibility:hidden">
+    <img src="assets/shape.svg" /><span id="user-help-text"></span>
+  </div>
+
+  <section id="bottom-section" class="bottom-section">
+    <div class="control-button-wrapper">
+      <div class="control-inner-wrapper" id="up-button">
+      <div class="control-button"  id="up">
+        <div class="control-icon center" id="up-icon"><div></div>gesture</div>
+        <div class="add-icon invisible" id="up-add-icon">
+          <img class="center" src="assets/icon.svg"/>
+        </div>
+        <canvas width="224" height="224" class="thumb hide" id="up-thumb"></canvas>
+      </div>
+      </div>
+      <div class="sample-count" id="up-total"><img src="assets/invalid-name.svg"/></div>
+
+    </div>
+    <div class="control-button-wrapper">
+      <div class="control-inner-wrapper" id="down-button">
+      <div class="control-button" id="down">
+        <div class="control-icon center" id="down-icon"><div></div>gesture</div>
+        <div class="add-icon invisible" id="down-add-icon">
+          <img class="center" src="assets/icon.svg"/></div>
+        <canvas width="224" height="224" class="thumb hide" id="down-thumb"></canvas>
+      </div>
+      </div>
+      <div class="sample-count" id="down-total"><img src="assets/invalid-name.svg"/></div>
+
+    </div>
+    <div class="control-button-wrapper">
+      <div class="control-inner-wrapper" id="left-button">
+      <div class="control-button" id="left">
+        <div class="control-icon center" id="left-icon"><div></div>gesture</div>
+        <div class="add-icon invisible" id="left-add-icon">
+          <img class="center" src="assets/icon.svg"/>
+        </div>
+        <canvas width="224" height="224" class="thumb hide" id="left-thumb"></canvas>
+      </div>
+    </div>
+      <div class="sample-count" id="left-total"><img src="assets/invalid-name.svg"/></div>
+
+    </div>
+    <div class="control-button-wrapper">
+      <div class="control-inner-wrapper" id="right-button">
+      <div class="control-button" id="right">
+        <div class="control-icon center" id="right-icon"><div></div>gesture</div>
+        <div class="add-icon invisible" id="right-add-icon" >
+          <img class="center" src="assets/icon.svg"/>
+        </div>
+        <canvas width="224" height="224" class="thumb hide" id="right-thumb"></canvas>
+      </div>
+      </div>
+      <div class="sample-count" id="right-total"><img src="assets/invalid-name.svg"/></div>
+
+    </div>
+    <div class="control-button-wrapper">
+      <div class="control-inner-wrapper" id="leftclick-button">
+      <div class="control-button" id="leftclick">
+        <div class="control-icon center" id="leftclick-icon"><div></div>gesture</div>
+        <div class="add-icon invisible" id="leftclick-add-icon">
+          <img class="center" src="assets/icon.svg"/>
+        </div>
+          <canvas width="224" height="224" class="thumb hide" id="leftclick-thumb"></canvas>
+      </div>
+      </div>
+      <div class="sample-count" id="leftclick-total"><img src="assets/invalid-name.svg"/></div>
+
+    </div>
+    <div class="control-button-wrapper">
+      <div class="control-inner-wrapper" id="rightclick-button">
+      <div class="control-button" id="rightclick">
+        <div class="control-icon center" id="rightclick-icon"><div></div>gesture</div>
+        <div class="add-icon invisible" id="rightclick-add-icon">
+          <img class="center" src="assets/icon.svg"/>
+        </div>
+        <canvas width="224" height="224" class="thumb hide" id="rightclick-thumb"></canvas>
+      </div>
+      </div>
+      <div class="sample-count" id="rightclick-total"><img src="assets/invalid-name.svg"/></div>
+
+    </div>
+    <div class="control-button-wrapper">
+      <div class="control-inner-wrapper" id="scrollup-button">
+      <div class="control-button" id="scrollup">
+        <div class="control-icon center" id="scrollup-icon"><div></div>gesture</div>
+        <div class="add-icon invisible" id="scrollup-add-icon" >
+          <img class="center" src="assets/icon.svg"/>
+        </div>
+        <canvas width="224" height="224" class="thumb hide" id="scrollup-thumb"></canvas>
+      </div>
+      </div>
+      <div class="sample-count" id="scrollup-total"><img src="assets/invalid-name.svg"/></div>
+
+    </div>
+    <div class="control-button-wrapper">
+      <div class="control-inner-wrapper" id="scrolldown-button">
+      <div class="control-button" id="scrolldown">
+        <div class="control-icon center" id="scrolldown-icon"><div></div>gesture</div>
+        <div class="add-icon invisible" id="scrolldown-add-icon">
+          <img class="center" src="assets/icon.svg"/>
+        </div>
+        <canvas width="224" height="224" class="thumb hide" id="scrolldown-thumb"></canvas>
+      </div>
+      </div>
+      <div class="sample-count" id="scrolldown-total"><img src="assets/invalid-name.svg"/></div>
+
+    </div>
+  </section>
+</body>
+
+<!-- Load TensorFlow.js -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+
+
+<script src="ui.js"></script>
+<script src="webcam.js"></script>
+<script src="controller_dataset.js"></script>
+<script src="index.js"></script>
+</html>
